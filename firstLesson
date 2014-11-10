@@ -1,0 +1,35 @@
+help
+db
+use mydb
+j = { name : "mongo" }
+k = { x : 3 }
+db.testData.insert( j )
+db.testData.insert( k )
+show collections
+db.testData.find()
+var c = db.testData.find()
+while ( c.hasNext() ) printjson( c.next() )
+for (var i = 1; i <= 25; i++) {
+   db.testData.insert( { x : i } )
+}
+db.testData.find()
+
+function insertData(dbName, colName, num) {
+
+  var col = db.getSiblingDB(dbName).getCollection(colName);
+
+  for (i = 0; i < num; i++) {
+    col.insert({x:i});
+  }
+
+  print(col.count());
+
+}
+insertData("test", "testData", 400)
+
+var c = db.testData.find()
+printjson( c [ 4 ] )
+db.testData.find( { x : 18 } )
+db.testData.findOne()
+db.testData.find().limit(3)
+
