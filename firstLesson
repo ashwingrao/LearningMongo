@@ -32,4 +32,70 @@ printjson( c [ 4 ] )
 db.testData.find( { x : 18 } )
 db.testData.findOne()
 db.testData.find().limit(3)
+x = 200
+x / 5;
+Math.sin(Math.PI / 2);
+new Date("2010/1/1");
+"Hello, World!".replace("World", "MongoDB");
+function factorial (n) {
+	if (n <= 1) return 1;
+	return n * factorial(n - 1);
+}
+factorial(5);
+post = {"title" : "My Blog Post","content" : "Here's my blog post.","date" : new Date()}
+{
+        "title" : "My Blog Post",
+        "content" : "Here's my blog post.",
+        "date" : ISODate("2012-08-24T21:12:09.982Z")
+}
+db.blog.insert(post)
+db.blog.find()
+db.blog.findOne()
+post.comments = []
+db.blog.update({title : "My Blog Post"}, post)
+db.blog.remove({title : "My Blog Post"})
+JSON’s expressive capabilities are limited because the only types are null, boolean, numeric, string, array, and object.
+{"x" : null}
+{"x" : true}
+{"x" : 3.14} (64 bit FP)
+{"x" : 3}
+{"x" : NumberInt("3")}
+{"x" : NumberLong("3")}
+{"x" : "foobar"}
+{"x" : new Date()} Dates are stored as milliseconds since the epoch. The time zone is not stored:
+{"x" : /foobar/i}
+{"x" : ["a", "b", "c"]}
+{"x" : {"foo" : "bar"}}
+An object id is a 12-byte ID for documents. See the section “_id and ObjectIds” on page 20 for details:
+        {"x" : ObjectId()}
+binary data
+{"x" : function() { /* ... */ }}
+
+{"things" : ["pie", 3.14]}
+MongoDB’s distributed nature is the main reason why it uses ObjectIds as opposed to something more traditional, like an autoincrementing primary key: it is difficult and time-consuming to synchronize autoincrementing primary keys across multiple servers.
+
+0 1 2 3 	4 5 6 		7 8 	9 10 11 
+Timestamp 	Machine 	PID 	Increment
+
+mongo some-host:30000/myDB
+mongo --nodb
+conn = new Mongo("some-host:30000")
+db = conn.getDB("myDB")
+mongo script1.js script2.js script3.js
+mongo --quiet server-1:30000/foo script1.js script2.js script3.js
+load("script1.js")
+use foo	-  db.getSisterDB("foo")
+show dbs  -  db.getMongo().getDBs()
+show collections - db.getCollectionNames()
+run("pwd")
+var no = function() { print("Not on my watch.");
+};
+// Prevent dropping databases
+db.dropDatabase = DB.prototype.dropDatabase = no;
+// Prevent dropping collections
+DBCollection.prototype.drop = no; // Prevent dropping indexes
+    DBCollection.prototype.dropIndex = no;
+prompt = function() {
+return (new Date())+"> ";
+};
 
